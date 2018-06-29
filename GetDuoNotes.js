@@ -1,1 +1,24 @@
-$("body").html('<div id="words">');var ld=duo.user.attributes.language_data;var notes=[];var zeroes="000";for(l in ld){ld[l].skills.models.forEach(function(e){var t=e.attributes;if(t.has_explanation==true){notes.push("<!-- "+zeroes.substr(0,3-t.coords_y.toString().length)+t.coords_y.toString()+" --><h1>"+t.name+"</h1>\n<div>"+t.explanation+"</div><br><br>");}})}notes=notes.sort();for(k in notes){if(k>0){$("#words").append("<hr>");}$("#words").append(notes[k]);}$("body").append("</div>")
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+var x = ""; 
+var t = $(".tips-notes"); 
+for(i = 0; i < t.length; i++) { 
+  var e = t[i]; 
+  e.click(); 
+  var p = $(".tips-notes-panel"); 
+  var c = p[p.length - 1].innerHTML;
+  c = c.replaceAll('<h3>', '</div><h3 class="p-2 mt-5 mb-2 bg-info text-white">');
+  c = c.replaceAll('</h3>', '</h3><div>');
+  c = c.replaceAll('<h4>', '</div><h4 class="p-2 mt-5 mb-2 bg-info text-white">');
+  c = c.replaceAll('</h4>', '</h4><div>');
+  c = c.replaceAll('<table>', '<table class="table">');
+  x = x + '<div class="row d-block">' + c + '</div></div>'; 
+}
+x = x.replaceAll('<div class="row d-block"></div><h3', '<div class="row d-block"><h3');
+x = x.replaceAll('<div class="row d-block"></div><h4', '<div class="row d-block"><h4');
+x = '<!DOCTYPE html><html dir="ltr"><head><meta charset="UTF-8"><title>Duolingo Tips and Notes</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"></head><body class="container">' + x + '</body></html>'
+document.open();
+document.write(x);
+document.close();
